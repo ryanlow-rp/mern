@@ -1,4 +1,4 @@
-const {getDB} = require('./db')
+const { getConnection } = require('./db')
 
 async function query(sql, params) {
     const conn = getConnection()
