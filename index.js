@@ -9,6 +9,8 @@ const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const cors = require('cors')
+const samplerouter1 = require('./src/routes/sample.route')
+const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
 
 // setup the session
 // the `session` function is available thru the session package
@@ -58,14 +60,26 @@ async function main() {
     // 3. await can only be called in a function  marked as a async
     const db = await mysql.createConnection(dbConfig)
     console.log('database has been connected!')
-
-    app.get('/', (req, res) => {
-        res.json({ message: 'ok' })
-    })
 }
 
-main()
+// main()
 
-app.listen(process.env.port || 3000, function () {
+app.get('/', (req, res) => {
+    res.json({ message: 'ok' })
+})
+
+// app.use('/sampleroute1', samplerouter1)
+app.use('/programming-languages', programmingLanguagesRouter)
+
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500
+    console.error(err.message, err.stack)
+    res.status(statusCode).json({ message: err.message })
+
+    return
+})
+
+app.listen(process.env.port || 3000, () => {
     console.log('server has started')
 })
