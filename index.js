@@ -2,7 +2,7 @@ const express = require('express')
 const ejs = require('ejs')
 const dotenv = require('dotenv').config()
 const mysql = require('mysql2/promise')
-
+const bodyParser = require('body-parser')
 const app = express()
 const bcrypt = require('bcrypt')
 const session = require('express-session')
@@ -28,11 +28,17 @@ app.use(passport.session());
 app.use(express.static('src/public'))
 
 // enable form processing
+app.use(bodyParser.json())
 app.use(
-    express.urlencoded({
-        extended: false,
+    bodyParser.urlencoded({
+        extended: true,
     })
 )
+// app.use(
+//     express.urlencoded({
+//         extended: false,
+//     })
+// )
 
 // set the view engine
 app.set('view engine', 'ejs')
@@ -52,6 +58,10 @@ async function main() {
     // 3. await can only be called in a function  marked as a async
     const db = await mysql.createConnection(dbConfig)
     console.log('database has been connected!')
+
+    app.get('/', (req, res) => {
+        res.json({ message: 'ok' })
+    })
 }
 
 main()
