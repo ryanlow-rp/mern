@@ -7,10 +7,10 @@ mysql.createConnection(dbConfig.db_config).then((connection) => {
     conn = connection
 })
 
-function getDB() {
+function getConnection() {
     return conn;
 }
 
 module.exports = {
-    getDB
+    getConnection
 }
