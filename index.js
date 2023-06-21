@@ -9,7 +9,7 @@ const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const cors = require('cors')
-const samplerouter1 = require('./src/routes/sample.route')
+const samplerouter = require('./src/routes/sample.route')
 const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
 
 // setup the session
@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'ok' })
 })
 
-// app.use('/sampleroute1', samplerouter1)
+app.use('/sample', samplerouter)
 app.use('/programming-languages', programmingLanguagesRouter)
 
 /* Error handler middleware */
