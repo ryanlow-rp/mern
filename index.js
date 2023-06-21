@@ -5,6 +5,7 @@ const mysql = require('mysql2/promise')
 const bodyParser = require('body-parser')
 const app = express()
 const bcrypt = require('bcrypt')
+var path = require('path')
 const session = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -44,6 +45,7 @@ app.use(
 
 // set the view engine
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, '/src/views'))
 
 const dbConfig = {
     host: process.env.DB_HOST,

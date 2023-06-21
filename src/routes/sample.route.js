@@ -3,7 +3,10 @@ const router = express.Router()
 const sampleController = require('../controllers/sample.controller')
 
 /* GET programming languages. */
-router.get('/', sampleController.get)
+// router.get('/', sampleController.get)
+router.get('/', (req, res, next) => {
+    res.render('sample/sample')
+})
 
 /* POST programming language */
 router.post('/', sampleController.create)
